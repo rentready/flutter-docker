@@ -2,7 +2,7 @@ FROM rentready/android-sdk:tools
 
 # https://docs.flutter.dev/development/tools/sdk/releases
 ARG FLUTTER_SDK_VERSION
-ENV FLUTTER_SDK_VERSION=${FLUTTER_SDK_VERSION:-3.3.10}
+ENV FLUTTER_SDK_VERSION=${FLUTTER_SDK_VERSION:-3.7.0}
 
 ENV FLUTTER_SDK_PACKAGE=flutter_linux_${FLUTTER_SDK_VERSION}-stable.tar.xz
 ENV FLUTTER_SDK_DOWNLOAD_BASE_URL=https://storage.googleapis.com/flutter_infra_release/releases/stable/linux/${FLUTTER_SDK_PACKAGE}

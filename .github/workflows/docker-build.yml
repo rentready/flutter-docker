@@ -8,7 +8,7 @@ jobs:
   build_flutter:
     runs-on: ubuntu-latest
     env:
-      FLUTTER_SDK_VERSION: 3.3.10
+      FLUTTER_SDK_VERSION: 3.7.0
     steps:
       - uses: actions/checkout@v3
       - uses: docker/setup-qemu-action@v2
