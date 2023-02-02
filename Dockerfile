@@ -32,6 +32,9 @@ RUN apt-get update \
         liblzma-dev \
         libglu1-mesa \
         google-chrome-stable \
+        build-essential \
+        ruby-full \
+        bundler \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
@@ -76,3 +79,7 @@ RUN yes | sdkmanager --install \
 RUN yes | sdkmanager --install \
     "platform-tools" \
     "tools"
+
+COPY Gemfile /Gemfile
+
+RUN bundle install
