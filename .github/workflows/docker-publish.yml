@@ -29,4 +29,4 @@ jobs:
           push: true
           tags: |
             rentready/flutter:latest
-            rentready/flutter:3.7.10
+            rentready/flutter:${{ env.FLUTTER_SDK_VERSION }}
