@@ -31,7 +31,7 @@ jobs:
           echo "Hash $hash"
 
           version=$(wget --quiet -O - https://storage.googleapis.com/flutter_infra_release/releases/releases_$arch.json \
-          | jq -r --arg hash "$hash" '.releases[] | select (.channel | contains($hash)) | .version')
+          | jq -r --arg hash "$hash" '.releases[]')
 
           echo "Version $version"
 
