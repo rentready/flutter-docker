@@ -23,7 +23,7 @@ jobs:
             arch="windows"
           fi
 
-          echo "Arch $arch"
+          echo "Arch $arch ${{ runner.os }}"
 
           hash=$(wget --quiet -O - https://storage.googleapis.com/flutter_infra_release/releases/releases_$arch.json \
                 | jq -r '.current_release.stable')
