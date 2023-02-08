@@ -12,26 +12,23 @@ jobs:
       - uses: docker/setup-qemu-action@v2
       - uses: docker/setup-buildx-action@v2
 
-      - uses: actions/github-script@v6
+      - run: |
+          if [[ ${{ runner.os }} = "macOS" ]]
+          then
+            arch="macos"
+          elif [[ ${{ runner.os }} = "Linux" ]]
+          then
+            arch="linix"
+          else
+            arch="windows"
+          fi
+
+          hash=$(wget --quiet -O - https://storage.googleapis.com/flutter_infra_release/releases/releases_$arch.json \
+                | jq -r '.current_release.stable')
+
+          wget --quiet -O - https://storage.googleapis.com/flutter_infra_release/releases/releases_$arch.json \
+          | jq -r --arg hash "$hash" '.releases[] | select (.channel | contains($hash)) | .version'
         id: flutter
-        with:
-          script: |
-            if [[ ${{ runner.os }} = "macOS" ]]
-            then
-              arch="macos"
-            elif [[ ${{ runner.os }} = "Linux" ]]
-            then
-              arch="linix"
-            else
-              arch="windows"
-            fi
-
-            hash=$(wget --quiet -O - https://storage.googleapis.com/flutter_infra_release/releases/releases_$arch.json \
-                  | jq -r '.current_release.stable')
-
-            wget --quiet -O - https://storage.googleapis.com/flutter_infra_release/releases/releases_$arch.json \
-            | jq -r --arg hash "$hash" '.releases[] | select (.channel | contains($hash)) | .version'
-          result-encoding: string
 
       - uses: docker/build-push-action@v3
         with:
