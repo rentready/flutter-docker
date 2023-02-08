@@ -28,6 +28,8 @@ jobs:
 
           echo "version=$(wget --quiet -O - https://storage.googleapis.com/flutter_infra_release/releases/releases_$arch.json \
           | jq -r --arg hash "$hash" '.releases[] | select (.channel | contains($hash)) | .version')" >> $GITHUB_OUTPUT
+
+          echo "$hash $version"
         id: flutter
 
       - name: Test
