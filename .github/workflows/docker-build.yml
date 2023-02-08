@@ -23,15 +23,17 @@ jobs:
             arch="windows"
           fi
 
-          echo "Arch $arch ${{ runner.os }}"
-
           hash=$(wget --quiet -O - https://storage.googleapis.com/flutter_infra_release/releases/releases_$arch.json \
                 | jq -r '.current_release.stable')
 
-          echo "version=$(wget --quiet -O - https://storage.googleapis.com/flutter_infra_release/releases/releases_$arch.json \
-          | jq -r --arg hash "$hash" '.releases[] | select (.channel | contains($hash)) | .version')" >> $GITHUB_OUTPUT
+          echo "$hash"
 
-          echo "$hash $version"
+          version=$(wget --quiet -O - https://storage.googleapis.com/flutter_infra_release/releases/releases_$arch.json \
+          | jq -r --arg hash "$hash" '.releases[] | select (.channel | contains($hash)) | .version')
+
+          echo "$hash"
+
+          echo "SDK_VERSION=$version" >> $GITHUB_OUTPUT
         id: flutter
 
       - name: Test
