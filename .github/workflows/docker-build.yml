@@ -23,7 +23,7 @@ jobs:
             arch="windows"
           fi
 
-          wget --quiet -O - https://storage.googleapis.com/flutter_infra_release/releases/releases_$arch.json
+          curl https://storage.googleapis.com/flutter_infra_release/releases/releases_$arch.json
 
           hash=$(wget --quiet -O - https://storage.googleapis.com/flutter_infra_release/releases/releases_$arch.json \
                 | jq -r '.current_release.stable')
