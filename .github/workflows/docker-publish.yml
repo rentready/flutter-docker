@@ -33,8 +33,8 @@ jobs:
           hash=$(wget --quiet -O - https://storage.googleapis.com/flutter_infra_release/releases/releases_$arch.json \
                 | jq -r '.current_release.stable')
 
-          wget --quiet -O - https://storage.googleapis.com/flutter_infra_release/releases/releases_$arch.json \
-          | jq -r --arg hash "$hash" '.releases[] | select (.channel | contains($hash)) | .version'
+          echo "version=$(wget --quiet -O - https://storage.googleapis.com/flutter_infra_release/releases/releases_$arch.json \
+          | jq -r --arg hash "$hash" '.releases[] | select (.channel | contains($hash)) | .version')" >> $GITHUB_OUTPUT
         id: flutter
 
       - uses: docker/build-push-action@v3
