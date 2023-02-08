@@ -29,20 +29,14 @@ jobs:
           version=$(wget --quiet -O - https://storage.googleapis.com/flutter_infra_release/releases/releases_$arch.json \
           | jq -r --arg hash "$hash" '.releases[] | select (.hash | contains($hash)) | .version')
 
-          echo "Version $version"
-
           echo "SDK_VERSION=$version" >> $GITHUB_OUTPUT
         id: flutter
 
-      - name: Test
-        run: |
-          echo "Version ${{ steps.flutter.outputs.SDK_VERSION }}"
-
-      # - uses: docker/build-push-action@v3
-      #   with:
-      #     context: .
-      #     file: ./Dockerfile
-      #     platforms: linux/amd64
-      #     build-args: |
-      #       FLUTTER_SDK_VERSION=${{steps.flutter.outputs.version}}
-      #     tags: ${{ env.LOCAL_BASE_IMAGE }}
+      - uses: docker/build-push-action@v3
+        with:
+          context: .
+          file: ./Dockerfile
+          platforms: linux/amd64
+          build-args: |
+            FLUTTER_SDK_VERSION=${{steps.flutter.outputs.SDK_VERSION}}
+          tags: ${{ env.LOCAL_BASE_IMAGE }}
