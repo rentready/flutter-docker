@@ -30,11 +30,16 @@ jobs:
           | jq -r --arg hash "$hash" '.releases[] | select (.channel | contains($hash)) | .version')" >> $GITHUB_OUTPUT
         id: flutter
 
-      - uses: docker/build-push-action@v3
-        with:
-          context: .
-          file: ./Dockerfile
-          platforms: linux/amd64
-          build-args: |
-            FLUTTER_SDK_VERSION=${{steps.flutter.outputs.version}}
-          tags: ${{ env.LOCAL_BASE_IMAGE }}
+      - name: Test
+        run: |
+          echo "Version ${{ steps.flutter.outputs.version }}"
+          echo "Outputs ${{ steps.flutter.outputs }}"
+
+      # - uses: docker/build-push-action@v3
+      #   with:
+      #     context: .
+      #     file: ./Dockerfile
+      #     platforms: linux/amd64
+      #     build-args: |
+      #       FLUTTER_SDK_VERSION=${{steps.flutter.outputs.version}}
+      #     tags: ${{ env.LOCAL_BASE_IMAGE }}
