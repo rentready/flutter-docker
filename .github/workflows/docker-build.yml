@@ -29,7 +29,7 @@ jobs:
           echo "Hash $hash"
 
           version=$(wget --quiet -O - https://storage.googleapis.com/flutter_infra_release/releases/releases_$arch.json \
-          | jq -r --arg hash "$hash" '.releases[] | select (.channel | contains("7048ed95a5ad3e43d697e0c397464193991fc230"))')
+          | jq -r --arg hash "$hash" '.releases[] | select (.hash | contains($hash)) | .version')
 
           echo "Version $version"
 
