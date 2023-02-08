@@ -3,12 +3,12 @@ name: Publish Docker image
 on:
   push:
     branches: [ "main" ]
+  schedule:
+    - cron: "0 0 * * *"
 
 jobs:
   build_flutter:
     runs-on: ubuntu-latest
-    env:
-      FLUTTER_SDK_VERSION: 3.7.0
     steps:
       - uses: actions/checkout@v3
       - uses: docker/setup-qemu-action@v2
@@ -19,14 +19,34 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
+      - run: |
+          if [[ ${{ runner.os }} = "macOS" ]]
+          then
+            arch="macos"
+          elif [[ ${{ runner.os }} = "Linux" ]]
+          then
+            arch="linux"
+          else
+            arch="windows"
+          fi
+
+          hash=$(wget --quiet -O - https://storage.googleapis.com/flutter_infra_release/releases/releases_$arch.json \
+                | jq -r '.current_release.stable')
+
+          version=$(wget --quiet -O - https://storage.googleapis.com/flutter_infra_release/releases/releases_$arch.json \
+          | jq -r --arg hash "$hash" '.releases[] | select (.hash | contains($hash)) | .version')
+
+          echo "SDK_VERSION=$version" >> $GITHUB_OUTPUT
+        id: flutter
+
       - uses: docker/build-push-action@v3
         with:
           context: .
           file: ./Dockerfile
           platforms: linux/amd64
           build-args: |
-            FLUTTER_SDK_VERSION=${{ env.FLUTTER_SDK_VERSION }}
+            FLUTTER_SDK_VERSION=${{steps.flutter.outputs.SDK_VERSION}}
           push: true
           tags: |
             rentready/flutter:latest
-            rentready/flutter:${{ env.FLUTTER_SDK_VERSION }}
+            rentready/flutter:${{steps.flutter.outputs.SDK_VERSION}}
