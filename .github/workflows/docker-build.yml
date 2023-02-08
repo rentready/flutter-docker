@@ -26,8 +26,6 @@ jobs:
           hash=$(wget --quiet -O - https://storage.googleapis.com/flutter_infra_release/releases/releases_$arch.json \
                 | jq -r '.current_release.stable')
 
-          echo "Hash $hash"
-
           version=$(wget --quiet -O - https://storage.googleapis.com/flutter_infra_release/releases/releases_$arch.json \
           | jq -r --arg hash "$hash" '.releases[] | select (.hash | contains($hash)) | .version')
 
@@ -38,8 +36,7 @@ jobs:
 
       - name: Test
         run: |
-          echo "Version ${{ steps.flutter.outputs.version }}"
-          echo "Outputs ${{ steps.flutter.outputs }}"
+          echo "Version ${{ steps.flutter.outputs.SDK_VERSION }}"
 
       # - uses: docker/build-push-action@v3
       #   with:
