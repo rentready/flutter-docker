@@ -18,7 +18,7 @@ jobs:
             arch="macos"
           elif [[ ${{ runner.os }} = "Linux" ]]
           then
-            arch="linix"
+            arch="linux"
           else
             arch="windows"
           fi
