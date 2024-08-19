@@ -37,6 +37,19 @@ RUN apt-get update \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
+RUN yes | sdkmanager --install \
+    "build-tools;35.0.0" \
+    "build-tools;34.0.0" \
+    "build-tools;33.0.3" \
+    "build-tools;32.0.0" \
+    "build-tools;31.0.0" \
+    "platforms;android-34" \
+    "platforms;android-33" \
+    "platforms;android-32" \
+    "platforms;android-31" \
+    "platform-tools" \
+    "tools"
+
 RUN set -x \
     && curl -fsSL -o /tmp/${FLUTTER_SDK_PACKAGE} ${FLUTTER_SDK_DOWNLOAD_BASE_URL} \
     && mkdir -p ${FLUTTER_HOME} \
@@ -54,32 +67,6 @@ RUN set -x \
     && flutter precache --universal --linux --web --ios \
     && yes | flutter doctor --android-licenses \
     && flutter --version
-
-RUN yes | sdkmanager --install \
-    "build-tools;34.0.0" \
-    "build-tools;33.0.0" "build-tools;33.0.1" "build-tools;33.0.2" \
-    "build-tools;32.0.0" \
-    "build-tools;31.0.0" \
-    "build-tools;30.0.0" "build-tools;30.0.1" "build-tools;30.0.2" "build-tools;30.0.3" \
-    "build-tools;29.0.0" "build-tools;29.0.1" "build-tools;29.0.2" "build-tools;29.0.3" \
-    "build-tools;28.0.0" "build-tools;28.0.1" "build-tools;28.0.2" "build-tools;28.0.3" \
-    "build-tools;27.0.0" "build-tools;27.0.1" "build-tools;27.0.2" "build-tools;27.0.3" \
-    "build-tools;26.0.0" "build-tools;26.0.1" "build-tools;26.0.2" "build-tools;26.0.3"
-
-RUN yes | sdkmanager --install \
-    "platforms;android-34" \
-    "platforms;android-33" \
-    "platforms;android-32" \
-    "platforms;android-31" \
-    "platforms;android-30" \
-    "platforms;android-29" \
-    "platforms;android-28" \
-    "platforms;android-27" \
-    "platforms;android-26"
-
-RUN yes | sdkmanager --install \
-    "platform-tools" \
-    "tools"
 
 COPY Gemfile /Gemfile
 
