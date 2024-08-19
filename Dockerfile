@@ -38,7 +38,6 @@ RUN apt-get update \
     && rm -rf /var/lib/apt/lists/*
 
 RUN yes | sdkmanager --install \
-    "build-tools;35.0.0" \
     "build-tools;34.0.0" \
     "build-tools;33.0.3" \
     "build-tools;32.0.0" \
