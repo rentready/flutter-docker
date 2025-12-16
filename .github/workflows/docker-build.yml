@@ -38,5 +38,5 @@ jobs:
           file: ./Dockerfile
           platforms: linux/amd64
           build-args: |
-            FLUTTER_SDK_VERSION=${{steps.flutter.outputs.SDK_VERSION}}
+            FLUTTER_SDK_VERSION=${{ steps.flutter.outputs.SDK_VERSION }}
           tags: ${{ env.LOCAL_BASE_IMAGE }}

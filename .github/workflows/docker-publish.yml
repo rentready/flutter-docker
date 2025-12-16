@@ -45,8 +45,8 @@ jobs:
           file: ./Dockerfile
           platforms: linux/amd64
           build-args: |
-            FLUTTER_SDK_VERSION=${{steps.flutter.outputs.SDK_VERSION}}
+            FLUTTER_SDK_VERSION=${{ steps.flutter.outputs.SDK_VERSION }}
           push: true
           tags: |
             rentready/flutter:latest
-            rentready/flutter:${{steps.flutter.outputs.SDK_VERSION}}
+            rentready/flutter:${{ steps.flutter.outputs.SDK_VERSION }}
