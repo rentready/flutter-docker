@@ -37,17 +37,13 @@ RUN apt-get update \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
-RUN yes | sdkmanager --install \
-    "build-tools;34.0.0" \
-    "build-tools;33.0.3" \
-    "build-tools;32.0.0" \
-    "build-tools;31.0.0" \
-    "platforms;android-34" \
-    "platforms;android-33" \
-    "platforms;android-32" \
-    "platforms;android-31" \
+RUN sdkmanager --install \
+    "build-tools;37.0.0" \
+    "build-tools;36.1.0" \
+    "platforms;android-37.1" \
+    "platforms;android-36.1" \
     "platform-tools" \
-    "tools"
+    "cmdline-tools;latest"
 
 RUN set -x \
     && curl -fsSL -o /tmp/${FLUTTER_SDK_PACKAGE} ${FLUTTER_SDK_DOWNLOAD_BASE_URL} \
