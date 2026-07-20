@@ -1,7 +1,5 @@
 FROM rentready/android-sdk:tools
 
-SHELL ["/bin/bash", "-euxo", "pipefail", "-c"]
-
 # https://docs.flutter.dev/development/tools/sdk/releases
 ARG FLUTTER_SDK_VERSION
 
@@ -39,7 +37,7 @@ RUN apt-get update \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
-RUN yes | sdkmanager --install \
+RUN android sdk install \
     "build-tools;37.0.0" \
     "build-tools;36.1.0" \
     "platforms;android-37.1" \
