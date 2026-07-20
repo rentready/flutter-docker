@@ -38,14 +38,10 @@ RUN apt-get update \
     && rm -rf /var/lib/apt/lists/*
 
 RUN yes | sdkmanager --install \
-    "build-tools;34.0.0" \
-    "build-tools;33.0.3" \
-    "build-tools;32.0.0" \
-    "build-tools;31.0.0" \
-    "platforms;android-34" \
-    "platforms;android-33" \
-    "platforms;android-32" \
-    "platforms;android-31" \
+    "build-tools;37.0.0" \
+    "build-tools;36.0.1" \
+    "platforms;android-37.1" \
+    "platforms;android-36.1" \
     "platform-tools" \
     "tools"
 
