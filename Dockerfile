@@ -45,7 +45,7 @@ RUN yes | sdkmanager --install \
     "platforms;android-37.1" \
     "platforms;android-36.1" \
     "platform-tools" \
-    "tools"
+    "cmdline-tools;latest"
 
 RUN set -x \
     && curl -fsSL -o /tmp/${FLUTTER_SDK_PACKAGE} ${FLUTTER_SDK_DOWNLOAD_BASE_URL} \
