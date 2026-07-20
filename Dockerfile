@@ -41,7 +41,7 @@ RUN apt-get update \
 
 RUN yes | sdkmanager --install \
     "build-tools;37.0.0" \
-    "build-tools;36.0.1" \
+    "build-tools;36.1.0" \
     "platforms;android-37.1" \
     "platforms;android-36.1" \
     "platform-tools" \
