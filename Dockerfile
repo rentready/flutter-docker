@@ -1,5 +1,7 @@
 FROM rentready/android-sdk:tools
 
+SHELL ["/bin/bash", "-euxo", "pipefail", "-c"]
+
 # https://docs.flutter.dev/development/tools/sdk/releases
 ARG FLUTTER_SDK_VERSION
 
