@@ -37,7 +37,7 @@ RUN apt-get update \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
-RUN android sdk install \
+RUN sdkmanager --install \
     "build-tools;37.0.0" \
     "build-tools;36.1.0" \
     "platforms;android-37.1" \
